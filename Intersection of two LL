@@ -1,0 +1,55 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        p1 = headA
+        p2 = headB
+        l1 = 0
+        l2 = 0
+        
+        if headA == None:
+            return headB
+        if headB == None:
+            return headA
+        
+        #Length of First LinkedList Calculation
+        while p1 != None:
+            l1 += 1
+            p1 = p1.next
+            
+        #Length of Second LinkedList Calculation    
+        while p2 != None:
+            l2 += 1
+            p2 = p2.next
+        
+        if l1 >= l2:
+            diff = l1 - l2
+            smaller_LL = headB
+            larger_LL = headA
+        else:
+            diff = l2 - l1
+            smaller_LL = headA
+            larger_LL = headB
+        
+        #Trick to add pointers to a constant value 'k' before the Intersection Point
+        #Example : [4,1,8,4,5] and [5,6,1,8,4,5] 
+        #Now, smaller_LL will always starts from initial head BUT 
+        #larger_LL will point at '6'
+        #After iterating 4,1 smaller will point at 8
+        #After iterating 6,1 larger_LL will point at 8
+        
+        for i in range(diff):
+            larger_LL = larger_LL.next
+        
+        while( smaller_LL != larger_LL):
+            smaller_LL = smaller_LL.next
+            larger_LL = larger_LL.next
+            
+        return smaller_LL
+            
+            
+        
