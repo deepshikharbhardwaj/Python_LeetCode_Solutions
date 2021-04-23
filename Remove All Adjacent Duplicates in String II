@@ -1,0 +1,15 @@
+class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        l = [] #normal 1d list
+        for c in s:
+            if l and l[-1][0] == c: #top element matches
+                l[-1][1] += 1 #increase count
+                if l[-1][1] >= k:
+                    l.pop()
+            else:
+                l.append([c,1]) #this creates inner list
+                
+        result = ""
+        for a in l:
+            result += a[0]*a[1]
+        return result
