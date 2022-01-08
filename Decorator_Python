@@ -1,0 +1,35 @@
+#DECORATOR : Here we decorate function in such a way that if we want to calculate the execution time of each function then it's not feasible that we write
+# time code in each function, rather we make another function which will run before the square and cube function 
+
+import time
+
+def dec_time(f):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = f(*args, **kwargs)
+        end = time.time()
+        print(f.__name__ + " took " + str((end - start)*1000) + " mil seconds")
+        return result
+    return wrapper
+
+@dec_time
+def square(n):
+    result = []
+    for num in n:
+        result.append(num*num)
+
+@dec_time
+def cube(n):
+    result = []
+    for num in n:
+        result.append(num*num)
+
+
+a = range(1,100)
+square(a)
+cube(a)
+
+
+#OUTPUT
+#---> square took 0.019073486328125 mil seconds
+#---> cube took 0.012874603271484375 mil seconds
